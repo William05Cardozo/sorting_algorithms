@@ -1,7 +1,7 @@
 #include "sort.h"
 
 /**
- * bubble_sort - Bubble Algorithm 
+ * bubble_sort - Bubble Algorithm
  * @array: Array to print and sort (pointer)
  * @size: Number of elements in array
  * a: Iterator
