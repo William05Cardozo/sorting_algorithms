@@ -1,6 +1,71 @@
 #include "sort.h"
 
 /**
+ * part_quick - Lomutu Function
+ * @n: Array to print
+ * @low: index for first element
+ * @high: Index for last element
+ * size: interger
+ * Return: indext of pivot
+ **/
+
+int part_quick(int *n, int low, int high)
+{
+	int a, b, c, d; /* Iterators */
+	static int size, k;
+
+	if (k == 0)
+	{
+		size = high + 1, k++;
+	}
+	a = n[high];
+	b = low;
+	for (c = low; c < high; c++)
+	{
+		if (n[c] <= a)
+		{
+			if (b != c)
+			{
+				d = n[b];
+				n[b] = n[c];
+				n[c] = d;
+				print_array(n, size);
+			}
+				b++;
+		}
+	}
+		if (b != high)
+		{
+			d = n[b];
+			n[b] = n[high];
+			n[high] = d;
+			print_array(n, size);
+		}
+		return (b);
+}
+
+/**
+ * quick - Recursion Function
+ * @n: array to sort
+ * @low: index for first element
+ * @high: index for last element
+ * a: Variable
+ * Return: No Line
+ **/
+
+void quick(int *n, int low, int high)
+{
+	int a;
+
+	if (low < high)
+	{
+		a = part_quick(n, low, high);
+		quick(n, low, a - 1);
+		quick(n, a + 1, high);
+	}
+}
+
+/**
  * quick_sort - Function what sort with the algorithm
  * @array: Array to print and sort (pointer)
  * @size: Number of elements in array
@@ -9,50 +74,9 @@
 
 void quick_sort(int *array, size_t size)
 {
-	quick(array, 0, size - 1, size);
-}
-
-/**
- * quick - Recursion Function
- * @n: Array to print
- * @low: index for first element
- * @high: Index for last element
- * @size: size of array
- * qs: Variable
- * Return: No Line
- **/
-
-void quick(int *n, int low, int high, int size)
-{
-	int a, b, c; /* Iterators */
-	int qs;
-
-	if (low < high)
+	if (array == NULL)
 	{
-		a = high;
-		b = low;
-		for (c = low; c < high; c++)
-		{
-			if (n[c] < n[a])
-			{
-				if (c != b)
-				{
-					qs = n[c];
-					n[c] = n[b];
-					n[b] = qs;
-					print_array(n, size);
-				}
-				b++;
-			}
-		}
-		if (b != a && n[b] != n[a])
-		{
-			qs = n[b];
-			n[b] = n[a];
-			n[a] = qs;
-			print_array(n, size);
-		}
-		quick(n, b, b - 1, size);
-		quick(n, b + 1, high, size);
+		return;
 	}
+	quick(array, 0, size - 1);
 }
